@@ -1,4 +1,4 @@
-package in.reqres;
+package in.reqres.tests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 
-public class RegisterUserTest {
+public class AuthApiTest extends TestBase{
     @Test
     @DisplayName("Успешная регистрация пользователя")
     @Tag("negative")
@@ -22,7 +22,7 @@ public class RegisterUserTest {
                 .contentType(JSON)
                 .body(regData)
                 .when()
-                .post("https://reqres.in/api/users")
+                .post("/users")
                 .then()
                 .log().status()
                 .log().body()
