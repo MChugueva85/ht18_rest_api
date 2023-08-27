@@ -1,4 +1,4 @@
-package models;
+package in.reqres.models;
 
 import lombok.Data;
 
@@ -6,3 +6,4 @@ import lombok.Data;
 public class LoginBodyModel {
     String email, password;
 }
+

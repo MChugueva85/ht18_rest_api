@@ -1,16 +1,16 @@
 package in.reqres.tests;
 
-import models.LoginBodyModel;
-import models.LoginResponseModel;
+import in.reqres.models.LoginResponseModel;
+import in.reqres.models.LoginBodyModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static in.reqres.specs.AuthSpec.*;
+import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AuthApiTest extends TestBase {
     @Test
@@ -22,20 +22,19 @@ public class AuthApiTest extends TestBase {
         authData.setEmail("eve.holt@reqres.in");
         authData.setPassword("pistol");
 
-        LoginResponseModel loginResponse = given()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .contentType(JSON)
-                .body(authData)
-                .when()
-                .post("/users")
-                .then()
-                .log().status()
-                .log().body()
-                .statusCode(201)
-                .extract().as(LoginResponseModel.class);
-        assertThat(loginResponse.getEmail()).contains("eve.holt@reqres.in");
-        assertThat(loginResponse.getPassword()).contains("pistol");
+        LoginResponseModel loginResponse = step("Make request", () ->
+                given(AuthRequestSpec)
+                        .body(authData)
+                        .when()
+                        .post("/users")
+                        .then()
+                        .spec(SucsessAuthResponseSpec)
+                        .extract().as(LoginResponseModel.class));
+
+        step("Make response", () -> {
+                    assertThat(loginResponse.getEmail()).isEqualTo("eve.holt@reqres.in");
+                    assertThat(loginResponse.getPassword()).isEqualTo("pistol");
+                }
+        );
     }
 }
