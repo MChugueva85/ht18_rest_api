@@ -1,9 +1,11 @@
 package in.reqres.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class SearchUserResponseModel {
 
     UserData data;

@@ -31,8 +31,8 @@ public class UserApiTest extends TestBase {
                         .extract().as(CreateUserResponseModel.class));
 
         step("Make response", () -> {
-                    assertThat(createUserResponse.getName().equals("LARRY"));
-                    assertThat(createUserResponse.getJob().equals("QA"));
+                    assertThat(createUserResponse.getName()).isEqualTo("LARRY");
+                    assertThat(createUserResponse.getJob()).isEqualTo("QA");
                 }
         );
     }
@@ -54,8 +54,8 @@ public class UserApiTest extends TestBase {
                         .spec(successUpdateUserResponse201Spec)
                         .extract().as(UpdateUserResponseModel.class));
         step("Make response", () -> {
-                    assertThat(updateUserResponse.getName().equals("morpheus"));
-                    assertThat(updateUserResponse.getJob().equals("zion resident"));
+                    assertThat(updateUserResponse.getName()).isEqualTo("morpheus");
+                    assertThat(updateUserResponse.getJob()).isEqualTo("zion resident");
                 }
         );
     }
@@ -88,12 +88,12 @@ public class UserApiTest extends TestBase {
                         .extract().as(SearchUserResponseModel.class));
 
         step("Make response", () -> {
-                    assertThat(searchUserResponse.getData().getId().equals("2"));
-                    assertThat(searchUserResponse.getData().getEmail().equals("janet.weaver@reqres.in"));
-                    assertThat(searchUserResponse.getData().getFirst_name().equals("Janet"));
-                    assertThat(searchUserResponse.getData().getLast_name().equals("Weaver"));
-                    assertThat(searchUserResponse.getData().getAvatar().equals("https://reqres.in/img/faces/2-image.jpg"));
-                    assertThat(searchUserResponse.getSupport().getUrl().equals("https://reqres.in/#support-heading"));
+                    assertThat(searchUserResponse.getData().getId()).isEqualTo("2");
+                    assertThat(searchUserResponse.getData().getEmail()).isEqualTo("janet.weaver@reqres.in");
+                    assertThat(searchUserResponse.getData().getFirst_name()).isEqualTo("Janet");
+                    assertThat(searchUserResponse.getData().getLast_name()).isEqualTo("Weaver");
+                    assertThat(searchUserResponse.getData().getAvatar()).isEqualTo("https://reqres.in/img/faces/2-image.jpg");
+                    assertThat(searchUserResponse.getSupport().getUrl()).isEqualTo("https://reqres.in/#support-heading");
                 }
         );
     }
