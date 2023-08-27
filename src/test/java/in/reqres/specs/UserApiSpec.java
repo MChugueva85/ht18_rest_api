@@ -12,48 +12,48 @@ import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class UserApiSpec {
-    public static RequestSpecification UserApiRequestSpec = with()
+    public static RequestSpecification userApiRequestSpec = with()
             .log().uri()
             .log().method()
             .log().body()
             .filter(withCustomTemplates())
             .contentType(JSON);
 
-    public static ResponseSpecification sucsessUpdateUserResponse201Spec = new ResponseSpecBuilder()
+    public static ResponseSpecification successUpdateUserResponse201Spec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(201)
-            .expectBody((matchesJsonSchemaInClasspath("schemas/sucsess-UpdateUser-response-schema.json")))
+            .expectBody((matchesJsonSchemaInClasspath("schemas/success-UpdateUser-response-schema.json")))
             .build();
 
-    public static ResponseSpecification sucsessSearchUserResponse200Spec = new ResponseSpecBuilder()
+    public static ResponseSpecification successSearchUserResponse200Spec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(200)
-            .expectBody((matchesJsonSchemaInClasspath("schemas/sucsessSearchUser-response-schema.json")))
+            .expectBody((matchesJsonSchemaInClasspath("schemas/successSearchUser-response-schema.json")))
             .build();
 
-    public static RequestSpecification UserWithoutJSONRequestSpec = with()
+    public static RequestSpecification userWithoutJSONRequestSpec = with()
             .log().uri()
             .log().method()
             .log().body()
             .filter(withCustomTemplates());
 
-    public static ResponseSpecification sucsessDeleteUserResponse204Spec = new ResponseSpecBuilder()
+    public static ResponseSpecification successDeleteUserResponse204Spec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(204)
             .build();
 
-    public static ResponseSpecification AuthResponse404Spec = new ResponseSpecBuilder()
+    public static ResponseSpecification authResponse404Spec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(404)
             .build();
-    public static ResponseSpecification SucsessCreateUserResponse201Spec = new ResponseSpecBuilder()
+    public static ResponseSpecification successCreateUserResponse201Spec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(201)
-            .expectBody((matchesJsonSchemaInClasspath("schemas/sucsess-createUser-response-schema.json")))
+            .expectBody((matchesJsonSchemaInClasspath("schemas/success-createUser-response-schema.json")))
             .build();
 }

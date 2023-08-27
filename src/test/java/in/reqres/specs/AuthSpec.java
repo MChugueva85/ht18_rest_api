@@ -12,17 +12,17 @@ import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class AuthSpec {
-    public static RequestSpecification AuthRequestSpec = with()
+    public static RequestSpecification authRequestSpec = with()
             .log().uri()
             .log().method()
             .log().body()
             .filter(withCustomTemplates())
             .contentType(JSON);
 
-    public static ResponseSpecification SucsessAuthResponseSpec = new ResponseSpecBuilder()
+    public static ResponseSpecification successAuthResponseSpec = new ResponseSpecBuilder()
             .log(STATUS)
             .log(BODY)
             .expectStatusCode(201)
-            .expectBody((matchesJsonSchemaInClasspath("schemas/sucsessRegisterUser-response-schema.json")))
+            .expectBody((matchesJsonSchemaInClasspath("schemas/successRegisterUser-response-schema.json")))
             .build();
 }

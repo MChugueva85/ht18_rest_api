@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import static in.reqres.specs.UserApiSpec.*;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -16,19 +15,19 @@ public class UserApiTest extends TestBase {
     @Test
     @DisplayName("Успешное создание нового пользователя")
     @Tag("positive")
-    void sucsessfulCreatingUserTest() {
+    void successfulCreatingUserTest() {
 
         CreateUserBodyModel userData = new CreateUserBodyModel();
         userData.setName("LARRY");
         userData.setJob("QA");
 
         CreateUserResponseModel createUserResponse = step("Make request", () ->
-                given(UserApiRequestSpec)
+                given(userApiRequestSpec)
                         .body(userData)
                         .when()
                         .post("/users")
                         .then()
-                        .spec(SucsessCreateUserResponse201Spec)
+                        .spec(successCreateUserResponse201Spec)
                         .extract().as(CreateUserResponseModel.class));
 
         step("Make response", () -> {
@@ -41,18 +40,18 @@ public class UserApiTest extends TestBase {
     @Test
     @DisplayName("Успешное редактирование пользователя")
     @Tag("positive")
-    void sucsessfulUpdateUserTest() {
+    void successfulUpdateUserTest() {
         UpdateUserModel userData = new UpdateUserModel();
         userData.setName("morpheus");
         userData.setJob("zion resident");
 
         UpdateUserResponseModel updateUserResponse = step("Make request", () ->
-                given(UserApiRequestSpec)
+                given(userApiRequestSpec)
                         .body(userData)
                         .when()
                         .post("/users")
                         .then()
-                        .spec(sucsessUpdateUserResponse201Spec)
+                        .spec(successUpdateUserResponse201Spec)
                         .extract().as(UpdateUserResponseModel.class));
         step("Make response", () -> {
                     assertThat(updateUserResponse.getName().equals("morpheus"));
@@ -64,13 +63,13 @@ public class UserApiTest extends TestBase {
     @Test
     @DisplayName("Успешное удаление пользователя")
     @Tag("positive")
-    void sucsessfulDeletingUserTest() {
+    void successfulDeletingUserTest() {
         step("Check user was deleted", () -> {
-                    given(UserWithoutJSONRequestSpec)
+                    given(userWithoutJSONRequestSpec)
                             .when()
                             .delete("/users/10954")
                             .then()
-                            .spec(sucsessDeleteUserResponse204Spec);
+                            .spec(successDeleteUserResponse204Spec);
                 }
         );
     }
@@ -78,14 +77,14 @@ public class UserApiTest extends TestBase {
     @Test
     @DisplayName("Успешный поиск пользователя")
     @Tag("positive")
-    void sucsessfulSearchUserTest() {
+    void successfulSearchUserTest() {
 
         SearchUserResponseModel searchUserResponse = step("Make request", () ->
-                given(UserWithoutJSONRequestSpec)
+                given(userWithoutJSONRequestSpec)
                         .when()
                         .get("/users/2")
                         .then()
-                        .spec(sucsessSearchUserResponse200Spec)
+                        .spec(successSearchUserResponse200Spec)
                         .extract().as(SearchUserResponseModel.class));
 
         step("Make response", () -> {
@@ -104,11 +103,11 @@ public class UserApiTest extends TestBase {
     @Tag("negative")
     void userNotFoundTest() {
         step("Check user not found", () -> {
-                    given(UserWithoutJSONRequestSpec)
+                    given(userWithoutJSONRequestSpec)
                             .when()
                             .get("/users/23")
                             .then()
-                            .spec(AuthResponse404Spec)
+                            .spec(authResponse404Spec)
                             .body(is("{}"));
                 }
         );

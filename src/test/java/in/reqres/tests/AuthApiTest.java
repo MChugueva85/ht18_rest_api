@@ -16,19 +16,19 @@ public class AuthApiTest extends TestBase {
     @Test
     @DisplayName("Успешная регистрация пользователя")
     @Tag("negative")
-    void sucsessfulRegisterUserTest() {
+    void successfulRegisterUserTest() {
 
         LoginBodyModel authData = new LoginBodyModel();
         authData.setEmail("eve.holt@reqres.in");
         authData.setPassword("pistol");
 
         LoginResponseModel loginResponse = step("Make request", () ->
-                given(AuthRequestSpec)
+                given(authRequestSpec)
                         .body(authData)
                         .when()
                         .post("/users")
                         .then()
-                        .spec(SucsessAuthResponseSpec)
+                        .spec(successAuthResponseSpec)
                         .extract().as(LoginResponseModel.class));
 
         step("Make response", () -> {
